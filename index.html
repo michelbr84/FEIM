@@ -1,181 +1,141 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>CM 01/02 - Demo</title>
-<style>
-  /* Paleta de cores e fonte */
-  :root {
-    --fundo-escuro: #00194a;
-    --menu-azul: #0066cc;
-    --texto-branco: #ffffff;
-    --destaque-amarelo: #ffcc00;
-    --hover-azul-claro: #3399ff;
-  }
-
-  /* Reset básico */
-  * {
-    box-sizing: border-box;
-  }
-
-  body, html {
-    margin: 0; padding: 0;
-    font-family: Arial, Verdana, sans-serif;
-    background-color: var(--fundo-escuro);
-    color: var(--texto-branco);
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* Barra de título no topo */
-  header {
-    background-color: var(--fundo-escuro);
-    padding: 10px 20px;
-    font-size: 1.2em;
-    font-weight: bold;
-    color: var(--texto-branco);
-    border-bottom: 2px solid var(--destaque-amarelo);
-    flex-shrink: 0;
-  }
-
-  /* Conteúdo principal com menu lateral e área principal */
-  main {
-    flex: 1;
-    display: flex;
-    min-height: 0;
-  }
-
-  /* Menu lateral esquerdo */
-  nav {
-    background-color: var(--menu-azul);
-    width: 180px;
-    display: flex;
-    flex-direction: column;
-    padding: 10px 0;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.3);
-    flex-shrink: 0;
-  }
-
-  nav button {
-    background: none;
-    border: none;
-    color: var(--texto-branco);
-    padding: 12px 15px;
-    font-size: 1em;
-    text-align: left;
-    width: 100%;
-    cursor: pointer;
-    border-left: 4px solid transparent;
-    transition: background-color 0.3s, border-left-color 0.3s;
-    outline-offset: 2px;
-  }
-
-  nav button:hover {
-    background-color: var(--hover-azul-claro);
-  }
-
-  nav button:focus {
-    outline: none;
-    background-color: var(--hover-azul-claro);
-    border-left-color: var(--destaque-amarelo);
-  }
-
-  nav button:active {
-    background-color: var(--destaque-amarelo);
-    color: var(--fundo-escuro);
-  }
-
-  /* Área principal para tabela de jogadores */
-  section.principal {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #003377;
-    color: var(--texto-branco);
-    font-size: 0.9em;
-  }
-
-  th, td {
-    padding: 8px 12px;
-    border: 1px solid var(--destaque-amarelo);
-    text-align: left;
-    font-weight: normal;
-  }
-
-  th {
-    background-color: var(--menu-azul);
-    font-weight: bold;
-  }
-
-  /* Condição com cor diferenciada */
-  .condicao {
-    text-align: right;
-  }
-
-  /* Responsividade */
-  @media (max-width: 600px) {
-    main {
-      flex-direction: column;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CM 01/02 - Demo</title>
+  <style>
+    /* Reset básico e estilo geral */
+    * {
+      box-sizing: border-box;
     }
+    body {
+      margin: 0;
+      background-color: #00194a;
+      font-family: Arial, Verdana, sans-serif;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    /* Barra de título no topo */
+    header {
+      background-color: #00194a;
+      padding: 10px 20px;
+      font-weight: bold;
+      font-size: 1.2rem;
+      border-bottom: 2px solid #ffcc00;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      color: white;
+    }
+    /* Container principal: menu lateral + conteúdo */
+    main {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+    /* Menu lateral à esquerda */
     nav {
-      width: 100%;
-      flex-direction: row;
-      overflow-x: auto;
+      background-color: #0066cc;
+      width: 160px;
+      display: flex;
+      flex-direction: column;
+      padding: 10px 0;
+      flex-shrink: 0;
+      border-right: 2px solid #ffcc00;
     }
     nav button {
-      flex: 1 0 auto;
-      text-align: center;
-      border-left: none;
-      border-bottom: 4px solid transparent;
-      padding: 10px 5px;
+      background: none;
+      border: none;
+      color: white;
+      padding: 12px 15px;
+      text-align: left;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+      border-left: 5px solid transparent;
+      transition: background-color 0.2s, border-color 0.2s;
     }
-    nav button:focus {
-      border-left-color: transparent;
-      border-bottom-color: var(--destaque-amarelo);
+    nav button:hover {
+      background-color: #3399ff;
+      border-left-color: #ffcc00;
     }
-  }
-</style>
-<script>
-  // Script para efeito de clique temporário nos botões
-  document.addEventListener('DOMContentLoaded', function () {
-    const buttons = document.querySelectorAll('nav button');
-    buttons.forEach(button => {
-      button.addEventListener('click', () => {
-        // Adiciona classe para efeito de clique
-        button.classList.add('clicado');
-        // Remove a classe após 200ms
-        setTimeout(() => {
-          button.classList.remove('clicado');
-        }, 200);
+    nav button:active {
+      background-color: #ffcc00;
+      color: #00194a;
+    }
+    /* Conteúdo principal: tabela */
+    section.content {
+      flex: 1;
+      padding: 15px 20px;
+      overflow: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #003080;
+      box-shadow: 0 0 10px rgba(255,204,0,0.6);
+    }
+    thead {
+      background-color: #0059b3;
+      color: #ffcc00;
+    }
+    th, td {
+      padding: 8px 10px;
+      border: 1px solid #004080;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+    tbody tr:hover {
+      background-color: #3399ff;
+      cursor: default;
+    }
+    /* Responsividade */
+    @media (max-width: 600px) {
+      nav {
+        width: 100px;
+      }
+      nav button {
+        padding: 8px 10px;
+        font-size: 0.8rem;
+      }
+      header {
+        font-size: 1rem;
+        padding: 8px 15px;
+      }
+      th, td {
+        font-size: 0.8rem;
+        padding: 6px 8px;
+      }
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const buttons = document.querySelectorAll('nav button');
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          btn.classList.add('clicked');
+          setTimeout(() => {
+            btn.classList.remove('clicked');
+          }, 200);
+        });
       });
     });
-  });
-</script>
+  </script>
 </head>
 <body>
-  <!-- Barra de título top -->
   <header>CM 01/02 - Demo</header>
-
-  <!-- Conteúdo principal com menu e área principal -->
   <main>
-    <!-- Menu lateral -->
     <nav>
-      <button type="button">Elenco</button>
-      <button type="button">Transferências</button>
-      <button type="button">Tática</button>
-      <button type="button">Competições</button>
-      <button type="button">Opções</button>
+      <button>Equipe</button>
+      <button>Transferências</button>
+      <button>Táticas</button>
+      <button>Competições</button>
+      <button>Opções</button>
     </nav>
-
-    <!-- Área principal com tabela -->
-    <section class="principal">
+    <section class="content">
       <table>
         <thead>
           <tr>
@@ -187,16 +147,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td>Rafael Silva</td><td>Goleiro</td><td>29</td><td>Brasil</td><td class="condicao">88%</td></tr>
-          <tr><td>João Pereira</td><td>Zagueiro</td><td>31</td><td>Portugal</td><td class="condicao">92%</td></tr>
-          <tr><td>David Costa</td><td>Lateral Direito</td><td>27</td><td>Brasil</td><td class="condicao">85%</td></tr>
-          <tr><td>Lucas Moura</td><td>Meio-Campo</td><td>24</td><td>Brasil</td><td class="condicao">80%</td></tr>
-          <tr><td>Pedro Gomes</td><td>Atacante</td><td>22</td><td>Brasil</td><td class="condicao">90%</td></tr>
-          <tr><td>Marco Silva</td><td>Volante</td><td>30</td><td>Itália</td><td class="condicao">78%</td></tr>
-          <tr><td>Felipe Alves</td><td>Meia-Atacante</td><td>26</td><td>Brasil</td><td class="condicao">83%</td></tr>
-          <tr><td>Thiago Ramos</td><td>Lateral Esquerdo</td><td>28</td><td>Brasil</td><td class="condicao">87%</td></tr>
-          <tr><td>André Lima</td><td>Centroavante</td><td>25</td><td>Brasil</td><td class="condicao">91%</td></tr>
-          <tr><td>Matheus Dias</td><td>Meio-Campo</td><td>23</td><td>Brasil</td><td class="condicao">82%</td></tr>
+          <tr><td>Lucas Mendes</td><td>GO</td><td>28</td><td>Brasil</td><td>88%</td></tr>
+          <tr><td>João Silva</td><td>LD</td><td>24</td><td>Brasil</td><td>92%</td></tr>
+          <tr><td>Carlos Souza</td><td>LE</td><td>27</td><td>Brasil</td><td>85%</td></tr>
+          <tr><td>Ricardo Alves</td><td>ZAG</td><td>30</td><td>Brasil</td><td>90%</td></tr>
+          <tr><td>André Costa</td><td>VOL</td><td>26</td><td>Brasil</td><td>87%</td></tr>
+          <tr><td>Felipe Santos</td><td>MEI</td><td>23</td><td>Brasil</td><td>89%</td></tr>
+          <tr><td>Mateus Pereira</td><td>ATA</td><td>25</td><td>Brasil</td><td>93%</td></tr>
+          <tr><td>Bruno Gomes</td><td>ATA</td><td>22</td><td>Brasil</td><td>86%</td></tr>
+          <tr><td>Diego Rocha</td><td>VOL</td><td>29</td><td>Brasil</td><td>84%</td></tr>
+          <tr><td>Paulo Lima</td><td>ZAG</td><td>31</td><td>Brasil</td><td>88%</td></tr>
         </tbody>
       </table>
     </section>
