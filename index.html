@@ -1,279 +1,242 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>FAIM - Futebol AI Manager</title>
-<style>
-  /* Reset e base */
-  * {
-    box-sizing: border-box;
-  }
-  body {
-    margin: 0;
-    background-color: #00194a;
-    font-family: Arial, Verdana, sans-serif;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-  header {
-    background-color: #0066cc;
-    text-align: center;
-    padding: 1rem 0;
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #ffcc00;
-    letter-spacing: 2px;
-  }
-  main {
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-    background-color: #003080;
-    padding: 1rem;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-  section.menu {
-    background-color: #0066cc;
-    padding: 1rem;
-    width: 280px;
-    border-radius: 8px;
-  }
-  section.menu h2 {
-    margin-top: 0;
-    color: #ffcc00;
-    text-align: center;
-    font-size: 1.5rem;
-  }
-  label {
-    display: block;
-    margin-top: 1rem;
-    font-weight: bold;
-  }
-  input[type="text"], select {
-    width: 100%;
-    margin-top: 0.3rem;
-    padding: 8px;
-    border-radius: 4px;
-    border: none;
-    font-size: 1rem;
-  }
-  button {
-    margin-top: 1.5rem;
-    background-color: #ffcc00;
-    color: #00194a;
-    border: none;
-    padding: 10px 15px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%;
-  }
-  button:hover {
-    background-color: #e6b800;
-  }
-  section.content {
-    background-color: #004aad;
-    flex: 1;
-    border-radius: 8px;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-  }
-  section.content h2 {
-    color: #ffcc00;
-    text-align: center;
-  }
-  .info-block {
-    margin-top: 1rem;
-    padding: 1rem;
-    background-color: #0057cc;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    min-height: 100px;
-  }
-  /* Tabela de jogadores fictícios */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-  }
-  th, td {
-    border: 1px solid #0077ff;
-    padding: 8px;
-    text-align: center;
-  }
-  th {
-    background-color: #003375;
-    color: #ffcc00;
-  }
-  tr:hover {
-    background-color: #0050b3;
-  }
-  @media(max-width: 768px) {
-    main {
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAIM - Futebol AI Manager</title>
+  <style>
+    /* Reset simples */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Verdana, sans-serif;
+      background-color: #00194a;
+      color: #ffffff;
+      height: 100vh;
+      display: flex;
       flex-direction: column;
-      padding: 1rem 0.5rem;
     }
-    section.menu {
+
+    /* Barra de título no topo */
+    header {
+      background-color: #00194a;
+      padding: 12px 20px;
+      border-bottom: 2px solid #ffcc00;
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: white;
+      display: flex;
+      align-items: center;
+      user-select: none;
+    }
+
+    /* Container principal flexível em coluna para mobile
+       e linha para desktop */
+    .container {
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    /* Menu lateral */
+    nav {
+      background-color: #0066cc;
+      width: 160px;
+      display: flex;
+      flex-direction: column;
+      padding-top: 10px;
+      border-right: 2px solid #ffcc00;
+    }
+
+    nav button {
+      background: none;
+      border: none;
+      color: white;
+      padding: 14px 20px;
+      text-align: left;
+      font-size: 1rem;
+      cursor: pointer;
+      border-left: 4px solid transparent;
+      transition: background-color 0.3s, border-left-color 0.3s;
+      user-select: none;
+    }
+
+    nav button:hover {
+      background-color: #3399ff;
+    }
+
+    nav button:active, nav button.active {
+      background-color: #005bb5;
+      border-left-color: #ffcc00;
+      color: #ffcc00;
+    }
+
+    /* Área principal */
+    main {
+      flex: 1;
+      padding: 20px;
+      overflow: auto;
+      background-color: #002f7f;
+      color: white;
+    }
+
+    table {
       width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      user-select: none;
     }
-  }
-</style>
+
+    th, td {
+      border: 1px solid #005bb5;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #004080;
+      color: #ffcc00;
+    }
+
+    tr:nth-child(even) {
+      background-color: #003370;
+    }
+
+    tr:hover {
+      background-color: #004a99;
+      cursor: default;
+    }
+
+    /* Responsividade */
+    @media (max-width: 600px) {
+      .container {
+        flex-direction: column;
+      }
+
+      nav {
+        width: 100%;
+        flex-direction: row;
+        border-right: none;
+        border-bottom: 2px solid #ffcc00;
+      }
+
+      nav button {
+        flex: 1;
+        text-align: center;
+        border-left: none;
+        border-bottom: 4px solid transparent;
+      }
+
+      nav button:active, nav button.active {
+        border-left: none;
+        border-bottom-color: #ffcc00;
+      }
+    }
+  </style>
 </head>
 <body>
-<header>FAIM - Futebol AI Manager</header>
-<main>
-  <section class="menu" aria-label="Menu de seleção">
-    <h2>Configurações do Jogador</h2>
-    <form id="playerForm">
-      <label for="playerName">Nome do Jogador</label>
-      <input type="text" id="playerName" name="playerName" value="Michel" required />
+  <header>
+    FAIM - Futebol AI Manager
+  </header>
+  <div class="container">
+    <nav id="menu">
+      <button data-section="escalacao" class="active">Elenco</button>
+      <button data-section="transferencias">Transferências</button>
+      <button data-section="taticas">Táticas</button>
+      <button data-section="competições">Competições</button>
+      <button data-section="opcoes">Opções</button>
+    </nav>
+    <main id="conteudo">
+      <!-- Conteúdo da seção será inserido por JS -->
+    </main>
+  </div>
 
-      <label for="nationality">Nacionalidade</label>
-      <select id="nationality" name="nationality" required>
-        <option value="">Selecione</option>
-        <option value="Brasileiro" selected>Brasileiro</option>
-        <option value="Americano">Americano</option>
-        <option value="Outro">Outro</option>
-      </select>
+  <script>
+    // Dados fictícios dos jogadores
+    const jogadores = [
+      { nome: "Gabriel Silva", posicao: "ATA", idade: 24, nacionalidade: "Brasileiro", condicao: 95 },
+      { nome: "Lucas Pereira", posicao: "MEI", idade: 27, nacionalidade: "Brasileiro", condicao: 90 },
+      { nome: "João Gonçalves", posicao: "DEF", idade: 30, nacionalidade: "Brasileiro", condicao: 87 },
+      { nome: "Mateus Costa", posicao: "GOL", idade: 29, nacionalidade: "Brasileiro", condicao: 92 },
+      { nome: "Diego Souza", posicao: "ATA", idade: 22, nacionalidade: "Brasileiro", condicao: 94 },
+      { nome: "Robert Johnson", posicao: "MEI", idade: 26, nacionalidade: "Americano", condicao: 89 },
+      { nome: "James Wilson", posicao: "DEF", idade: 25, nacionalidade: "Americano", condicao: 85 },
+      { nome: "Michael Lee", posicao: "GOL", idade: 28, nacionalidade: "Americano", condicao: 90 },
+      { nome: "Anthony Brown", posicao: "ATA", idade: 23, nacionalidade: "Americano", condicao: 88 },
+      { nome: "Kevin Davis", posicao: "MEI", idade: 24, nacionalidade: "Americano", condicao: 91 }
+    ];
 
-      <label for="countries">Países Escolhidos</label>
-      <select id="countries" name="countries" multiple required>
-        <option value="Brasil" selected>Brasil</option>
-        <option value="Estados Unidos" selected>Estados Unidos</option>
-        <option value="Alemanha">Alemanha</option>
-        <option value="Espanha">Espanha</option>
-      </select>
-
-      <label for="championship">Campeonato Escolhido</label>
-      <select id="championship" name="championship" required>
-        <option value="">Selecione</option>
-        <option value="Campeonato Brasileiro Série A" selected>Campeonato Brasileiro Série A</option>
-        <option value="Major League Soccer">Major League Soccer</option>
-      </select>
-
-      <label for="team">Time Escolhido</label>
-      <select id="team" name="team" required>
-        <option value="">Selecione</option>
-        <option value="São Paulo" selected>São Paulo</option>
-        <option value="Flamengo">Flamengo</option>
-        <option value="Corinthians">Corinthians</option>
-        <option value="Palmeiras">Palmeiras</option>
-        <option value="New York City FC">New York City FC</option>
-        <option value="LA Galaxy">LA Galaxy</option>
-      </select>
-
-      <button type="submit">Confirmar</button>
-    </form>
-  </section>
-  <section class="content" aria-label="Área principal">
-    <h2>Informações do Jogador</h2>
-    <div class="info-block" id="playerInfo">
-      <p><strong>Nome:</strong> Michel</p>
-      <p><strong>Nacionalidade:</strong> Brasileiro</p>
-      <p><strong>Países Escolhidos:</strong> Brasil, Estados Unidos</p>
-      <p><strong>Campeonato Escolhido:</strong> Campeonato Brasileiro Série A</p>
-      <p><strong>Time Escolhido:</strong> São Paulo</p>
-    </div>
-    <h2>Simulação de Partida</h2>
-    <div class="info-block" id="matchSimulation">
-      <p>Escolha as configurações e clique em Confirmar para visualizar as informações aqui e simular uma partida.</p>
-      <button id="simulateBtn" disabled>Simular Partida</button>
-      <div id="simulationResult" style="margin-top:1rem;color:#ffcc00;"></div>
-    </div>
-  </section>
-</main>
-<script>
-  const playerForm = document.getElementById('playerForm');
-  const playerInfo = document.getElementById('playerInfo');
-  const simulateBtn = document.getElementById('simulateBtn');
-  const simulationResult = document.getElementById('simulationResult');
-
-  function updatePlayerInfo(data) {
-    playerInfo.innerHTML = `
-      <p><strong>Nome:</strong> ${data.playerName}</p>
-      <p><strong>Nacionalidade:</strong> ${data.nationality}</p>
-      <p><strong>Países Escolhidos:</strong> ${data.countries.join(', ')}</p>
-      <p><strong>Campeonato Escolhido:</strong> ${data.championship}</p>
-      <p><strong>Time Escolhido:</strong> ${data.team}</p>
-    `;
-  }
-
-  function validateFormData(data) {
-    return data.playerName && data.nationality && data.countries.length > 0 && data.championship && data.team;
-  }
-
-  playerForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const formData = new FormData(playerForm);
-    const data = {
-      playerName: formData.get('playerName').trim(),
-      nationality: formData.get('nationality'),
-      countries: formData.getAll('countries'),
-      championship: formData.get('championship'),
-      team: formData.get('team')
+    const areas = {
+      escalacao: renderTabelaJogadores,
+      transferencias: () => `<p>Funcionalidade de Transferências não implementada.</p>`,
+      taticas: () => `<p>Funcionalidade de Táticas não implementada.</p>`,
+      competições: () => `<p>Funcionalidade de Competições não implementada.</p>`,
+      opcoes: () => `<p>Configurações e opções do jogo.</p>`
     };
 
-    if (!validateFormData(data)) {
-      alert('Por favor, preencha todos os campos corretamente.');
-      return;
+    const menu = document.getElementById('menu');
+    const conteudo = document.getElementById('conteudo');
+
+    function renderTabelaJogadores() {
+      let tabela = `
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Posição</th>
+              <th>Idade</th>
+              <th>Nacionalidade</th>
+              <th>Condição (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+      jogadores.forEach(jogador => {
+        tabela += `<tr>
+          <td>${jogador.nome}</td>
+          <td>${jogador.posicao}</td>
+          <td>${jogador.idade}</td>
+          <td>${jogador.nacionalidade}</td>
+          <td>${jogador.condicao}</td>
+        </tr>`;
+      });
+      tabela += `</tbody></table>`;
+      return tabela;
     }
 
-    updatePlayerInfo(data);
-    simulateBtn.disabled = false;
-    simulationResult.textContent = '';
-  });
-
-  simulateBtn.addEventListener('click', function() {
-    const formData = new FormData(playerForm);
-    const team = formData.get('team');
-    const championship = formData.get('championship');
-
-    let opponent = '';
-    // Simples seleção de oponente diferente do escolhido
-    const teamsBR = ['Flamengo', 'Corinthians', 'Palmeiras', 'São Paulo'];
-    const teamsUS = ['New York City FC', 'LA Galaxy', 'Seattle Sounders'];
-
-    let availableOpponents = [];
-
-    if (championship === 'Campeonato Brasileiro Série A') {
-      availableOpponents = teamsBR.filter(t => t !== team);
-    } else if (championship === 'Major League Soccer') {
-      availableOpponents = teamsUS.filter(t => t !== team);
+    function ativarBotao(botao) {
+      // Remover classe active dos botões
+      [...menu.children].forEach(btn => btn.classList.remove('active'));
+      // Adicionar classe active no botão clicado
+      botao.classList.add('active');
     }
 
-    if (availableOpponents.length === 0) {
-      simulationResult.textContent = 'Nenhum adversário disponível para a simulação.';
-      return;
-    }
+    menu.addEventListener('click', (e) => {
+      if(e.target.tagName === 'BUTTON') {
+        ativarBotao(e.target);
+        const secao = e.target.getAttribute('data-section');
+        conteudo.innerHTML = areas[secao]();
+        // Efeito visual de clique temporário
+        e.target.style.backgroundColor = '#004a99';
+        setTimeout(() => {
+          // somente ajustar se o botão está ativo
+          if(e.target.classList.contains('active')) {
+            e.target.style.backgroundColor = '#005bb5';
+          } else {
+            e.target.style.backgroundColor = '';
+          }
+        }, 150);
+      }
+    });
 
-    opponent = availableOpponents[Math.floor(Math.random() * availableOpponents.length)];
-
-    // Simulação fictícia simples do resultado
-    const outcomes = ['vitória', 'empate', 'derrota'];
-    const outcome = outcomes[Math.floor(Math.random() * outcomes.length)];
-    let score;
-
-    switch (outcome) {
-      case 'vitória':
-        score = `${team} 2 x 1 ${opponent}`;
-        break;
-      case 'empate':
-        score = `${team} 1 x 1 ${opponent}`;
-        break;
-      case 'derrota':
-        score = `${team} 0 x 1 ${opponent}`;
-        break;
-    }
-
-    simulationResult.innerHTML = `<p>Resultado da partida simulada: <strong>${score}</strong> (${outcome})</p>`;
-  });
-</script>
+    // Inicializa o conteúdo da seção Elenco
+    conteudo.innerHTML = renderTabelaJogadores();
+  </script>
 </body>
 </html>
