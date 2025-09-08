@@ -1,151 +1,39 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FAIM - Futebol AI Manager</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #121212;
-            color: #fff;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        header {
-            background-color: #d32f2f;
-            padding: 1rem 2rem;
-            text-align: center;
-            font-size: 1.8rem;
-            font-weight: bold;
-            letter-spacing: 2px;
-            color: #fff;
-            user-select: none;
-        }
-        main {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            max-width: 800px;
-            margin: 2rem auto;
-            background-color: #1e1e1e;
-            border-radius: 8px;
-            padding: 2rem;
-            box-shadow: 0 0 15px rgba(211,47,47,0.7);
-        }
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: #f44336;
-        }
-        input[type="text"], select {
-            width: 100%;
-            padding: 0.5rem;
-            margin-bottom: 1rem;
-            border-radius: 4px;
-            border: none;
-            font-size: 1rem;
-        }
-        button {
-            background-color: #d32f2f;
-            border: none;
-            border-radius: 4px;
-            color: #fff;
-            font-weight: bold;
-            padding: 0.7rem 1.5rem;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #b71c1c;
-        }
-        .output {
-            background-color: #282828;
-            padding: 1rem;
-            border-radius: 6px;
-            margin-top: 1rem;
-            white-space: pre-wrap;
-            font-family: monospace;
-            min-height: 120px;
-        }
-        @media (max-width: 600px) {
-            main {
-                margin: 1rem;
-                padding: 1rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <header>FAIM - Futebol AI Manager</header>
-    <main>
-        <form id="playerForm">
-            <label for="nome">Nome do Jogador</label>
-            <input type="text" id="nome" name="nome" value="Isaac" required />
+import React from 'react';
+import { Header } from '../components/Header';
+import { Form } from '../components/Form';
+import { OutputBox } from '../components/OutputBox';
 
-            <label for="nacionalidade">Nacionalidade</label>
-            <input type="text" id="nacionalidade" name="nacionalidade" value="Brasileiro" required />
+// Página principal FAIM
+export const FaimPage: React.FC = () => {
+  return (
+    <div style={pageStyle}>
+      <Header />
+      <div style={contentStyle}>
+        <Form />
+        <OutputBox />
+      </div>
+    </div>
+  );
+};
 
-            <label for="paises">Países Escolhidos</label>
-            <select id="paises" name="paises" multiple required>
-                <option value="Brasil" selected>Brasil</option>
-                <option value="Estados Unidos">Estados Unidos</option>
-                <option value="Alemanha">Alemanha</option>
-                <option value="Espanha">Espanha</option>
-                <option value="Inglaterra">Inglaterra</option>
-                <option value="Itália">Itália</option>
-                <option value="França">França</option>
-                <option value="Portugal">Portugal</option>
-            </select>
+// Estilos embutidos para o layout geral
+const pageStyle: React.CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column',
+  height: '100vh',
+  backgroundColor: '#00194a',
+  color: '#ffffff',
+  fontFamily: 'Arial, Verdana, sans-serif',
+};
 
-            <label for="campeonato">Campeonato Escolhido</label>
-            <select id="campeonato" name="campeonato" required>
-                <option value="Campeonato Brasileiro Série A" selected>Campeonato Brasileiro Série A</option>
-                <option value="Campeonato Brasileiro Série B">Campeonato Brasileiro Série B</option>
-                <option value="Major League Soccer (MLS)">Major League Soccer (MLS)</option>
-                <option value="US Open Cup">US Open Cup</option>
-            </select>
+const contentStyle: React.CSSProperties = {
+  display: 'flex',
+  flex: 1,
+  overflow: 'hidden',
+  // Responsividade: coluna em telas pequenas
+  flexDirection: 'row',
+  '@media (max-width: 600px)': {
+    flexDirection: 'column',
+  },
+};
 
-            <label for="time">Time Escolhido</label>
-            <select id="time" name="time" required>
-                <option value="Flamengo" selected>Flamengo</option>
-                <option value="São Paulo">São Paulo</option>
-                <option value="Palmeiras">Palmeiras</option>
-                <option value="Corinthians">Corinthians</option>
-                <option value="Vasco da Gama">Vasco da Gama</option>
-            </select>
-
-            <button type="submit">Iniciar Jogo</button>
-        </form>
-        <section class="output" id="output"></section>
-    </main>
-
-    <script>
-        const form = document.getElementById('playerForm');
-        const output = document.getElementById('output');
-
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            const nome = form.nome.value.trim();
-            const nacionalidade = form.nacionalidade.value.trim();
-            const paisesSelected = Array.from(form.paises.selectedOptions).map(o => o.value);
-            const campeonato = form.campeonato.value;
-            const time = form.time.value;
-
-            output.textContent = `Nome do Jogador: ${nome}\n` +
-                `Nacionalidade: ${nacionalidade}\n` +
-                `Países Escolhidos: ${paisesSelected.join(', ')}\n` +
-                `Campeonato Escolhido: ${campeonato}\n` +
-                `Time Escolhido: ${time}\n\n` +
-                `>>> Bem-vindo ao FAIM - Futebol AI Manager!\n` +
-                `Simulação do jogo para ${time} começará em breve...`;
-        });
-    </script>
-</body>
-</html>
