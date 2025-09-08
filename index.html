@@ -1,22 +1,23 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CM 01/02 - Demo</title>
   <style>
-    /* Reset básico e estilo geral */
+    /* Reset básico e fonte */
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
     body {
-      margin: 0;
-      background-color: #00194a;
       font-family: Arial, Verdana, sans-serif;
+      background-color: #00194a;
       color: white;
+      height: 100vh;
       display: flex;
       flex-direction: column;
-      height: 100vh;
     }
     /* Barra de título no topo */
     header {
@@ -26,17 +27,15 @@
       font-size: 1.2rem;
       border-bottom: 2px solid #ffcc00;
       flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      color: white;
     }
-    /* Container principal: menu lateral + conteúdo */
+    /* Container principal que envolve menu + conteúdo */
     main {
+      flex: 1 1 auto;
       display: flex;
-      flex: 1;
+      height: 0; /* Para flex crescer corretamente */
       overflow: hidden;
     }
-    /* Menu lateral à esquerda */
+    /* Menu lateral */
     nav {
       background-color: #0066cc;
       width: 160px;
@@ -44,98 +43,92 @@
       flex-direction: column;
       padding: 10px 0;
       flex-shrink: 0;
-      border-right: 2px solid #ffcc00;
     }
     nav button {
       background: none;
       border: none;
       color: white;
-      padding: 12px 15px;
+      padding: 12px 20px;
       text-align: left;
       font-size: 1rem;
-      cursor: pointer;
       font-weight: bold;
-      border-left: 5px solid transparent;
-      transition: background-color 0.2s, border-color 0.2s;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
     }
     nav button:hover {
       background-color: #3399ff;
-      border-left-color: #ffcc00;
     }
     nav button:active {
       background-color: #ffcc00;
-      color: #00194a;
+      color: #003366;
     }
-    /* Conteúdo principal: tabela */
-    section.content {
-      flex: 1;
+    /* Área principal conteúdo */
+    section {
+      flex-grow: 1;
       padding: 15px 20px;
-      overflow: auto;
+      overflow-y: auto;
     }
+    /* Estilo da tabela de jogadores */
     table {
       width: 100%;
       border-collapse: collapse;
-      background-color: #003080;
-      box-shadow: 0 0 10px rgba(255,204,0,0.6);
-    }
-    thead {
-      background-color: #0059b3;
-      color: #ffcc00;
+      background-color: #002b80;
     }
     th, td {
-      padding: 8px 10px;
       border: 1px solid #004080;
+      padding: 8px 10px;
       text-align: left;
       font-size: 0.9rem;
     }
-    tbody tr:hover {
-      background-color: #3399ff;
-      cursor: default;
+    th {
+      background-color: #003399;
+      color: #ffcc00;
+      font-weight: bold;
     }
-    /* Responsividade */
+    tr:nth-child(even) {
+      background-color: #004aad;
+    }
+    /* Responsividade simples */
     @media (max-width: 600px) {
+      main {
+        flex-direction: column;
+      }
       nav {
-        width: 100px;
+        width: 100%;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 0;
       }
       nav button {
-        padding: 8px 10px;
-        font-size: 0.8rem;
+        flex: 1 0 auto;
+        text-align: center;
+        padding: 10px 5px;
+        font-size: 0.9rem;
       }
-      header {
-        font-size: 1rem;
-        padding: 8px 15px;
+      section {
+        padding: 10px 10px 20px 10px;
       }
-      th, td {
-        font-size: 0.8rem;
-        padding: 6px 8px;
+      table,
+      th,
+      td {
+        font-size: 0.85rem;
       }
     }
   </style>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const buttons = document.querySelectorAll('nav button');
-      buttons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          btn.classList.add('clicked');
-          setTimeout(() => {
-            btn.classList.remove('clicked');
-          }, 200);
-        });
-      });
-    });
-  </script>
 </head>
 <body>
-  <header>CM 01/02 - Demo</header>
+  <header>
+    CM 01/02 - Demo
+  </header>
   <main>
-    <nav>
-      <button>Equipe</button>
-      <button>Transferências</button>
-      <button>Táticas</button>
-      <button>Competições</button>
-      <button>Opções</button>
+    <nav aria-label="Menu Principal">
+      <button type="button">Elenco</button>
+      <button type="button">Transferências</button>
+      <button type="button">Táticas</button>
+      <button type="button">Competições</button>
+      <button type="button">Opções</button>
     </nav>
-    <section class="content">
+    <section aria-label="Tabela de jogadores">
       <table>
         <thead>
           <tr>
@@ -147,19 +140,38 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td>Lucas Mendes</td><td>GO</td><td>28</td><td>Brasil</td><td>88%</td></tr>
-          <tr><td>João Silva</td><td>LD</td><td>24</td><td>Brasil</td><td>92%</td></tr>
-          <tr><td>Carlos Souza</td><td>LE</td><td>27</td><td>Brasil</td><td>85%</td></tr>
-          <tr><td>Ricardo Alves</td><td>ZAG</td><td>30</td><td>Brasil</td><td>90%</td></tr>
-          <tr><td>André Costa</td><td>VOL</td><td>26</td><td>Brasil</td><td>87%</td></tr>
-          <tr><td>Felipe Santos</td><td>MEI</td><td>23</td><td>Brasil</td><td>89%</td></tr>
-          <tr><td>Mateus Pereira</td><td>ATA</td><td>25</td><td>Brasil</td><td>93%</td></tr>
-          <tr><td>Bruno Gomes</td><td>ATA</td><td>22</td><td>Brasil</td><td>86%</td></tr>
-          <tr><td>Diego Rocha</td><td>VOL</td><td>29</td><td>Brasil</td><td>84%</td></tr>
-          <tr><td>Paulo Lima</td><td>ZAG</td><td>31</td><td>Brasil</td><td>88%</td></tr>
+          <tr><td>Aline Souza</td><td>Atacante</td><td>24</td><td>Brasil</td><td>95</td></tr>
+          <tr><td>Bruno Nunes</td><td>Meio-campo</td><td>28</td><td>Portugal</td><td>87</td></tr>
+          <tr><td>Carlos Mendes</td><td>Zagueiro</td><td>31</td><td>Brasil</td><td>78</td></tr>
+          <tr><td>Diana Silva</td><td>Goleira</td><td>22</td><td>Brasil</td><td>88</td></tr>
+          <tr><td>Eduardo Lima</td><td>Lateral</td><td>26</td><td>Argentina</td><td>92</td></tr>
+          <tr><td>Fernanda Costa</td><td>Volante</td><td>29</td><td>Brasil</td><td>85</td></tr>
+          <tr><td>Gustavo Alves</td><td>Atacante</td><td>21</td><td>Uruguai</td><td>90</td></tr>
+          <tr><td>Helena Ribeiro</td><td>Meio-campo</td><td>27</td><td>Brasil</td><td>82</td></tr>
+          <tr><td>Igor Fernandes</td><td>Zagueiro</td><td>30</td><td>Brasil</td><td>80</td></tr>
+          <tr><td>Joana Carvalho</td><td>Lateral</td><td>25</td><td>Brasil</td><td>89</td></tr>
         </tbody>
       </table>
     </section>
   </main>
+  <script>
+    // Efeito visual de clique temporário nos botões do menu
+    document.querySelectorAll('nav button').forEach(button => {
+      button.addEventListener('click', () => {
+        button.classList.add('active-click');
+        setTimeout(() => {
+          button.classList.remove('active-click');
+        }, 150);
+      });
+    });
+  </script>
+  <style>
+    /* Classe para efeito de clique temporário */
+    .active-click {
+      background-color: #ffcc00 !important;
+      color: #003366 !important;
+      transition: none !important;
+    }
+  </style>
 </body>
 </html>
