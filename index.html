@@ -1,177 +1,279 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CM 01/02 - Demo</title>
-  <style>
-    /* Reset básico e fonte */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: Arial, Verdana, sans-serif;
-      background-color: #00194a;
-      color: white;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    /* Barra de título no topo */
-    header {
-      background-color: #00194a;
-      padding: 10px 20px;
-      font-weight: bold;
-      font-size: 1.2rem;
-      border-bottom: 2px solid #ffcc00;
-      flex-shrink: 0;
-    }
-    /* Container principal que envolve menu + conteúdo */
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FAIM - Futebol AI Manager</title>
+<style>
+  /* Reset e base */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    background-color: #00194a;
+    font-family: Arial, Verdana, sans-serif;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  header {
+    background-color: #0066cc;
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ffcc00;
+    letter-spacing: 2px;
+  }
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    background-color: #003080;
+    padding: 1rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  section.menu {
+    background-color: #0066cc;
+    padding: 1rem;
+    width: 280px;
+    border-radius: 8px;
+  }
+  section.menu h2 {
+    margin-top: 0;
+    color: #ffcc00;
+    text-align: center;
+    font-size: 1.5rem;
+  }
+  label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: bold;
+  }
+  input[type="text"], select {
+    width: 100%;
+    margin-top: 0.3rem;
+    padding: 8px;
+    border-radius: 4px;
+    border: none;
+    font-size: 1rem;
+  }
+  button {
+    margin-top: 1.5rem;
+    background-color: #ffcc00;
+    color: #00194a;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+  }
+  button:hover {
+    background-color: #e6b800;
+  }
+  section.content {
+    background-color: #004aad;
+    flex: 1;
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+  section.content h2 {
+    color: #ffcc00;
+    text-align: center;
+  }
+  .info-block {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #0057cc;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    min-height: 100px;
+  }
+  /* Tabela de jogadores fictícios */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+  th, td {
+    border: 1px solid #0077ff;
+    padding: 8px;
+    text-align: center;
+  }
+  th {
+    background-color: #003375;
+    color: #ffcc00;
+  }
+  tr:hover {
+    background-color: #0050b3;
+  }
+  @media(max-width: 768px) {
     main {
-      flex: 1 1 auto;
-      display: flex;
-      height: 0; /* Para flex crescer corretamente */
-      overflow: hidden;
-    }
-    /* Menu lateral */
-    nav {
-      background-color: #0066cc;
-      width: 160px;
-      display: flex;
       flex-direction: column;
-      padding: 10px 0;
-      flex-shrink: 0;
+      padding: 1rem 0.5rem;
     }
-    nav button {
-      background: none;
-      border: none;
-      color: white;
-      padding: 12px 20px;
-      text-align: left;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.15s ease;
-    }
-    nav button:hover {
-      background-color: #3399ff;
-    }
-    nav button:active {
-      background-color: #ffcc00;
-      color: #003366;
-    }
-    /* Área principal conteúdo */
-    section {
-      flex-grow: 1;
-      padding: 15px 20px;
-      overflow-y: auto;
-    }
-    /* Estilo da tabela de jogadores */
-    table {
+    section.menu {
       width: 100%;
-      border-collapse: collapse;
-      background-color: #002b80;
     }
-    th, td {
-      border: 1px solid #004080;
-      padding: 8px 10px;
-      text-align: left;
-      font-size: 0.9rem;
-    }
-    th {
-      background-color: #003399;
-      color: #ffcc00;
-      font-weight: bold;
-    }
-    tr:nth-child(even) {
-      background-color: #004aad;
-    }
-    /* Responsividade simples */
-    @media (max-width: 600px) {
-      main {
-        flex-direction: column;
-      }
-      nav {
-        width: 100%;
-        flex-direction: row;
-        overflow-x: auto;
-        padding: 0;
-      }
-      nav button {
-        flex: 1 0 auto;
-        text-align: center;
-        padding: 10px 5px;
-        font-size: 0.9rem;
-      }
-      section {
-        padding: 10px 10px 20px 10px;
-      }
-      table,
-      th,
-      td {
-        font-size: 0.85rem;
-      }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
-  <header>
-    CM 01/02 - Demo
-  </header>
-  <main>
-    <nav aria-label="Menu Principal">
-      <button type="button">Elenco</button>
-      <button type="button">Transferências</button>
-      <button type="button">Táticas</button>
-      <button type="button">Competições</button>
-      <button type="button">Opções</button>
-    </nav>
-    <section aria-label="Tabela de jogadores">
-      <table>
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Posição</th>
-            <th>Idade</th>
-            <th>Nacionalidade</th>
-            <th>Condição (%)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Aline Souza</td><td>Atacante</td><td>24</td><td>Brasil</td><td>95</td></tr>
-          <tr><td>Bruno Nunes</td><td>Meio-campo</td><td>28</td><td>Portugal</td><td>87</td></tr>
-          <tr><td>Carlos Mendes</td><td>Zagueiro</td><td>31</td><td>Brasil</td><td>78</td></tr>
-          <tr><td>Diana Silva</td><td>Goleira</td><td>22</td><td>Brasil</td><td>88</td></tr>
-          <tr><td>Eduardo Lima</td><td>Lateral</td><td>26</td><td>Argentina</td><td>92</td></tr>
-          <tr><td>Fernanda Costa</td><td>Volante</td><td>29</td><td>Brasil</td><td>85</td></tr>
-          <tr><td>Gustavo Alves</td><td>Atacante</td><td>21</td><td>Uruguai</td><td>90</td></tr>
-          <tr><td>Helena Ribeiro</td><td>Meio-campo</td><td>27</td><td>Brasil</td><td>82</td></tr>
-          <tr><td>Igor Fernandes</td><td>Zagueiro</td><td>30</td><td>Brasil</td><td>80</td></tr>
-          <tr><td>Joana Carvalho</td><td>Lateral</td><td>25</td><td>Brasil</td><td>89</td></tr>
-        </tbody>
-      </table>
-    </section>
-  </main>
-  <script>
-    // Efeito visual de clique temporário nos botões do menu
-    document.querySelectorAll('nav button').forEach(button => {
-      button.addEventListener('click', () => {
-        button.classList.add('active-click');
-        setTimeout(() => {
-          button.classList.remove('active-click');
-        }, 150);
-      });
-    });
-  </script>
-  <style>
-    /* Classe para efeito de clique temporário */
-    .active-click {
-      background-color: #ffcc00 !important;
-      color: #003366 !important;
-      transition: none !important;
+<header>FAIM - Futebol AI Manager</header>
+<main>
+  <section class="menu" aria-label="Menu de seleção">
+    <h2>Configurações do Jogador</h2>
+    <form id="playerForm">
+      <label for="playerName">Nome do Jogador</label>
+      <input type="text" id="playerName" name="playerName" value="Michel" required />
+
+      <label for="nationality">Nacionalidade</label>
+      <select id="nationality" name="nationality" required>
+        <option value="">Selecione</option>
+        <option value="Brasileiro" selected>Brasileiro</option>
+        <option value="Americano">Americano</option>
+        <option value="Outro">Outro</option>
+      </select>
+
+      <label for="countries">Países Escolhidos</label>
+      <select id="countries" name="countries" multiple required>
+        <option value="Brasil" selected>Brasil</option>
+        <option value="Estados Unidos" selected>Estados Unidos</option>
+        <option value="Alemanha">Alemanha</option>
+        <option value="Espanha">Espanha</option>
+      </select>
+
+      <label for="championship">Campeonato Escolhido</label>
+      <select id="championship" name="championship" required>
+        <option value="">Selecione</option>
+        <option value="Campeonato Brasileiro Série A" selected>Campeonato Brasileiro Série A</option>
+        <option value="Major League Soccer">Major League Soccer</option>
+      </select>
+
+      <label for="team">Time Escolhido</label>
+      <select id="team" name="team" required>
+        <option value="">Selecione</option>
+        <option value="São Paulo" selected>São Paulo</option>
+        <option value="Flamengo">Flamengo</option>
+        <option value="Corinthians">Corinthians</option>
+        <option value="Palmeiras">Palmeiras</option>
+        <option value="New York City FC">New York City FC</option>
+        <option value="LA Galaxy">LA Galaxy</option>
+      </select>
+
+      <button type="submit">Confirmar</button>
+    </form>
+  </section>
+  <section class="content" aria-label="Área principal">
+    <h2>Informações do Jogador</h2>
+    <div class="info-block" id="playerInfo">
+      <p><strong>Nome:</strong> Michel</p>
+      <p><strong>Nacionalidade:</strong> Brasileiro</p>
+      <p><strong>Países Escolhidos:</strong> Brasil, Estados Unidos</p>
+      <p><strong>Campeonato Escolhido:</strong> Campeonato Brasileiro Série A</p>
+      <p><strong>Time Escolhido:</strong> São Paulo</p>
+    </div>
+    <h2>Simulação de Partida</h2>
+    <div class="info-block" id="matchSimulation">
+      <p>Escolha as configurações e clique em Confirmar para visualizar as informações aqui e simular uma partida.</p>
+      <button id="simulateBtn" disabled>Simular Partida</button>
+      <div id="simulationResult" style="margin-top:1rem;color:#ffcc00;"></div>
+    </div>
+  </section>
+</main>
+<script>
+  const playerForm = document.getElementById('playerForm');
+  const playerInfo = document.getElementById('playerInfo');
+  const simulateBtn = document.getElementById('simulateBtn');
+  const simulationResult = document.getElementById('simulationResult');
+
+  function updatePlayerInfo(data) {
+    playerInfo.innerHTML = `
+      <p><strong>Nome:</strong> ${data.playerName}</p>
+      <p><strong>Nacionalidade:</strong> ${data.nationality}</p>
+      <p><strong>Países Escolhidos:</strong> ${data.countries.join(', ')}</p>
+      <p><strong>Campeonato Escolhido:</strong> ${data.championship}</p>
+      <p><strong>Time Escolhido:</strong> ${data.team}</p>
+    `;
+  }
+
+  function validateFormData(data) {
+    return data.playerName && data.nationality && data.countries.length > 0 && data.championship && data.team;
+  }
+
+  playerForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(playerForm);
+    const data = {
+      playerName: formData.get('playerName').trim(),
+      nationality: formData.get('nationality'),
+      countries: formData.getAll('countries'),
+      championship: formData.get('championship'),
+      team: formData.get('team')
+    };
+
+    if (!validateFormData(data)) {
+      alert('Por favor, preencha todos os campos corretamente.');
+      return;
     }
-  </style>
+
+    updatePlayerInfo(data);
+    simulateBtn.disabled = false;
+    simulationResult.textContent = '';
+  });
+
+  simulateBtn.addEventListener('click', function() {
+    const formData = new FormData(playerForm);
+    const team = formData.get('team');
+    const championship = formData.get('championship');
+
+    let opponent = '';
+    // Simples seleção de oponente diferente do escolhido
+    const teamsBR = ['Flamengo', 'Corinthians', 'Palmeiras', 'São Paulo'];
+    const teamsUS = ['New York City FC', 'LA Galaxy', 'Seattle Sounders'];
+
+    let availableOpponents = [];
+
+    if (championship === 'Campeonato Brasileiro Série A') {
+      availableOpponents = teamsBR.filter(t => t !== team);
+    } else if (championship === 'Major League Soccer') {
+      availableOpponents = teamsUS.filter(t => t !== team);
+    }
+
+    if (availableOpponents.length === 0) {
+      simulationResult.textContent = 'Nenhum adversário disponível para a simulação.';
+      return;
+    }
+
+    opponent = availableOpponents[Math.floor(Math.random() * availableOpponents.length)];
+
+    // Simulação fictícia simples do resultado
+    const outcomes = ['vitória', 'empate', 'derrota'];
+    const outcome = outcomes[Math.floor(Math.random() * outcomes.length)];
+    let score;
+
+    switch (outcome) {
+      case 'vitória':
+        score = `${team} 2 x 1 ${opponent}`;
+        break;
+      case 'empate':
+        score = `${team} 1 x 1 ${opponent}`;
+        break;
+      case 'derrota':
+        score = `${team} 0 x 1 ${opponent}`;
+        break;
+    }
+
+    simulationResult.innerHTML = `<p>Resultado da partida simulada: <strong>${score}</strong> (${outcome})</p>`;
+  });
+</script>
 </body>
 </html>
