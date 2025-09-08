@@ -8,7 +8,7 @@ export const FaimPage: React.FC = () => {
   return (
     <div style={pageStyle}>
       <Header />
-      <div style={contentStyle}>
+      <div style={contentStyles}>
         <Form />
         <OutputBox />
       </div>
@@ -22,7 +22,7 @@ const pageStyle: React.CSSProperties = {
   flexDirection: 'column',
   height: '100vh',
   backgroundColor: '#00194a',
-  color: '#ffffff',
+  color: '#fffff',
   fontFamily: 'Arial, Verdana, sans-serif',
 };
 
@@ -30,10 +30,6 @@ const contentStyle: React.CSSProperties = {
   display: 'flex',
   flex: 1,
   overflow: 'hidden',
-  // Responsividade: coluna em telas pequenas
   flexDirection: 'row',
-  '@media (max-width: 600px)': {
-    flexDirection: 'column',
-  },
 };
 
