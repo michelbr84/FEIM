@@ -12,7 +12,7 @@ interface OutputBoxProps {
   players: Player[];
 }
 
-// OutputBox.tsx - Mostra uma tabela de jogadores
+// OutputBox.tsx - mostra uma tabela de jogadores
 export const OutputBox: React.FC<OutputBoxProps> = ({ players }) => {
   return (
     <section style={sectionStyle} aria-label="Tabela de Jogadores">
@@ -74,16 +74,4 @@ export const OutputBox: React.FC<OutputBoxProps> = ({ players }) => {
   );
 };
 
-const sectionStyle: React.CSSProperties = {
-  flexGrow: 1,
-  overflowX: 'auto',
-  padding: '15px',
-  color: 'white',
-  fontFamily: 'Arial, Verdana, sans-serif',
-};
-
-const tableStyle: React.CSSProperties = {
-  borderCollapse: 'collapse',
-  width: '100%',
-  backgroundColor: '#00194a',
-};
+export default OutputBox;
